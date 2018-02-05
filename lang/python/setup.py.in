@@ -137,7 +137,7 @@ from distutils.command.install import install
 class InstallExtFirstHack(install):
     def run(self):
         self.run_command('build_ext')
-        self.do_egg_install()
+        # self.do_egg_install()
 
 from distutils.command.build import build
 class BuildExtFirstHack(build):
