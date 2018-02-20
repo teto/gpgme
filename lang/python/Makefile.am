@@ -46,6 +46,15 @@ all-local: copystamp
 	    $$PYTHON setup.py build --verbose --build-base="$$(basename "$${PYTHON}")-gpg" ; \
 	done
 
+all-bdist: copystamp
+	set -e ; for PYTHON in $(PYTHONS); do \
+	  CPP="$(CPP)" \
+	  CFLAGS="$(CFLAGS)" \
+	  srcdir="$(srcdir)" \
+	  top_builddir="$(top_builddir)" \
+	    $$PYTHON nix_run_setup bdist_wheel --verbose  ; \
+	done
+
 python$(PYTHON_VERSION)-gpg/dist/gpg-$(VERSION).tar.gz.asc: copystamp
 	$(MKDIR_P) python$(PYTHON_VERSION)-gpg-dist
 	CPP="$(CPP)" \
