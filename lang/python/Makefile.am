@@ -46,12 +46,18 @@ all-local: copystamp
 	    $$PYTHON setup.py build --verbose --build-base="$$(basename "$${PYTHON}")-gpg" ; \
 	done
 
+
+# --egg-base
+#  dist-dir
 all-bdist: copystamp
 	set -e ; for PYTHON in $(PYTHONS); do \
 	  CPP="$(CPP)" \
 	  CFLAGS="$(CFLAGS)" \
 	  srcdir="$(srcdir)" \
 	  top_builddir="$(top_builddir)" \
+		$$PYTHON nix_run_setup egg_info  --verbose  ; \
+		mkdir -p build/bdist.linux-x86_64/wheel; \
+		mv -v gpg.egg-info build/bdist.linux-x86_64/wheel/gpg-1.10.1-py2.7.egg-info; \
 	    $$PYTHON nix_run_setup bdist_wheel --verbose  ; \
 	done
 
